@@ -5,6 +5,7 @@
 #include <fcl.h>
 #include <sigmoid.h>
 #include <softmax.h>
+#include <relu.h>
 
 class ChaiModel
 {
@@ -16,6 +17,7 @@ public:
   void AddFCL(unsigned int input_size, unsigned int output_size);
   void AddSigmoid(unsigned int input_size);
   void AddSoftmax(unsigned int input_size);
+  void AddReLU(unsigned int input_size);
   std::vector<Layer*> Layers;
 };
 

@@ -47,7 +47,6 @@ void Softmax::CalcDeltas(std::vector<double> nextLayerDeltas)
           LayerDeltas[j + i * InputSize] += nextLayerDeltas[j + i * InputSize] * Output[j] * (1.0f - Output[k]);
       }
   }
-
 }
 
 void Softmax::UpdateParams(double learning_rate)

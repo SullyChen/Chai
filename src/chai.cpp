@@ -31,6 +31,13 @@ void ChaiModel::AddSoftmax(unsigned int input_size)
   Layers.push_back(layer);
 }
 
+void ChaiModel::AddReLU(unsigned int input_size)
+{
+  ReLU* relu = new ReLU(input_size);
+  Layer* layer = relu;
+  Layers.push_back(layer);
+}
+
 std::vector<double> ChaiModel::Evaluate(std::vector<double> input)
 {
   if (Layers.size() == 0)
@@ -60,7 +67,7 @@ double ChaiModel::Train(std::vector<double> input, std::vector<double> output, d
   if (Layers[Layers.size() - 1]->Output.size() != output.size())
   {
     std::cout << "Error size mismatch: expected output vector of size " << Layers[Layers.size() - 1]->Output.size()
-              << ", got size " << output.size();
+              << ", got size " << output.size() << std::endl;
     return -1;
   }
   //optimization

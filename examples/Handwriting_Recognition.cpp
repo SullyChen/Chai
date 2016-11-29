@@ -4,6 +4,7 @@
 #include <cmath>
 #include <time.h>
 #include <fstream>
+#include <SFML/Graphics.hpp>
 #include <chai.h>
 
 unsigned int MaxElement(std::vector<double> input);
@@ -202,5 +203,103 @@ int main()
 
   std::cout << "Accuracy: " << (double)num_correct / num_tests * 100.0f << "%" << std::endl;
 
-	return 0;
+  // Create the main window
+  sf::RenderWindow window(sf::VideoMode(280, 280), "Handwriting Recognition");
+  sf::VertexArray pointmap(sf::Points, 280 * 280);
+  for (int i = 0; i < 280; i++)
+      for (int j = 0; j < 280; j++)
+      {
+          pointmap[i * 280 + j].position.x = j;
+          pointmap[i * 280 + j].position.y = i;
+          pointmap[i * 280 + j].color = sf::Color::Black;
+      }
+
+  // Start the game loop
+  while (window.isOpen())
+  {
+      // Process events
+      sf::Event event;
+      while (window.pollEvent(event))
+      {
+          // Close window: exit
+          if (event.type == sf::Event::Closed) {
+              window.close();
+          }
+
+          // Escape pressed: exit
+          if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
+              window.close();
+          }
+      }
+
+      //zoom into area that is left clicked
+      if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+      {
+          sf::Vector2i position = sf::Mouse::getPosition(window);
+          if (position.x + position.y * 280 < 280*280 && position.x + position.y * 280 >= 0)
+          {
+              for (int i = -16; i < 17; i++)
+              {
+                  for (int j = -16; j < 17; j++)
+                  {
+                      if (position.x + i + (position.y + j) * 280 < 280*280 && position.x + i + (position.y + j) * 280 >= 0)
+                      {
+                          double distance_squared = i * i + j * j + 1;
+                          sf::Color color(255 / distance_squared, 255 / distance_squared, 255 / distance_squared);
+                          pointmap[position.x + i + (position.y + j) * 280].position.x = position.x + i;
+                          pointmap[position.x + i + (position.y + j) * 280].position.y = position.y + j;
+                          pointmap[position.x + i + (position.y + j) * 280].color += color;
+                          pointmap[position.x + i + (position.y + j) * 280].color += color;
+                          pointmap[position.x + i + (position.y + j) * 280].color += color;
+                          pointmap[position.x + i + (position.y + j) * 280].color += color;
+                          pointmap[position.x + i + (position.y + j) * 280].color += color;
+                      }
+                  }
+              }
+          }
+      }
+
+      if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::C))
+      {
+          for (int i = 0; i < 280*280; i++)
+              pointmap[i].color = sf::Color::Black;
+      }
+
+      if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Return))
+      {
+          std::vector<double> input;
+          input.reserve(784);
+          for (int k = 0; k < 28; k++)
+          {
+              for (int l = 0; l < 28; l++)
+              {
+                  double average = 0.0f;
+                  for (int i = 0; i < 10; i++)
+                      for (int j = 0; j < 10; j++)
+                      {
+                          double temp_average = 0.0f;
+                          temp_average += pointmap[k * 10 * 280 + l * 10 + i * 280 + j].color.r;
+                          temp_average += pointmap[k * 10 * 280 + l * 10 + i * 280 + j].color.g;
+                          temp_average += pointmap[k * 10 * 280 + l * 10 + i * 280 + j].color.b;
+                          temp_average /= 3.0f;
+                          average += temp_average;
+                      }
+                  average /= 100.0f;
+                  average /= 255.0f; //normalize
+                  input.push_back(average);
+              }
+          }
+          std::vector<double> output = MNISTModel.Evaluate(input);
+          int prediction = MaxElement(output);
+          std::cout << "This number is predicted to be a: " << prediction << std::endl;
+      }
+
+      // Clear screen
+      window.clear();
+      window.draw(pointmap);
+      // Update the window
+      window.display();
+  }
+
+  return EXIT_SUCCESS;
 }
