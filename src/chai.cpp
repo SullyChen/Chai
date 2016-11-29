@@ -7,7 +7,7 @@ ChaiModel::ChaiModel()
 ChaiModel::~ChaiModel()
 {
   for (unsigned int i = 0; i < Layers.size(); i++)
-    std::free(Layers[i]);
+    delete Layers[i];
 }
 
 void ChaiModel::AddFCL(unsigned int input_size, unsigned int output_size)
