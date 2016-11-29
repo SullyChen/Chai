@@ -38,7 +38,7 @@ void ChaiModel::AddReLU(unsigned int input_size)
   Layers.push_back(layer);
 }
 
-std::vector<double> ChaiModel::Evaluate(std::vector<double> input)
+std::vector<float> ChaiModel::Evaluate(std::vector<float> input)
 {
   if (Layers.size() == 0)
     std::cout << "Error! Empty model!" << std::endl;
@@ -53,15 +53,15 @@ std::vector<double> ChaiModel::Evaluate(std::vector<double> input)
     }
     return Layers[Layers.size() - 1]->Output;
   }
-  std::vector<double> v;
+  std::vector<float> v;
   v.push_back(-1);
   return v;
 }
 
-double ChaiModel::Train(std::vector<double> input, std::vector<double> output, double learning_rate)
+float ChaiModel::Train(std::vector<float> input, std::vector<float> output, float learning_rate)
 {
   //Evaluate model
-  std::vector<double> model_output = Evaluate(input);
+  std::vector<float> model_output = Evaluate(input);
 
   //check output size
   if (Layers[Layers.size() - 1]->Output.size() != output.size())
@@ -74,9 +74,9 @@ double ChaiModel::Train(std::vector<double> input, std::vector<double> output, d
   unsigned int _oSize = output.size();
 
   //calculate last layer deltas
-  std::vector<double> lastLayerDeltas;
+  std::vector<float> lastLayerDeltas;
   lastLayerDeltas.resize(model_output.size());
-  double cost = 0.0f;
+  float cost = 0.0f;
   for (unsigned int i = 0; i < lastLayerDeltas.size(); i++)
   {
     lastLayerDeltas[i] = model_output[i] - output[i % _oSize];

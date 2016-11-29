@@ -12,8 +12,8 @@ class ChaiModel
 public:
   ChaiModel();
   ~ChaiModel();
-  std::vector<double> Evaluate(std::vector<double> input);
-  double Train(std::vector<double> input, std::vector<double> output, double learning_rate);
+  std::vector<float> Evaluate(std::vector<float> input);
+  float Train(std::vector<float> input, std::vector<float> output, float learning_rate);
   void AddFCL(unsigned int input_size, unsigned int output_size);
   void AddSigmoid(unsigned int input_size);
   void AddSoftmax(unsigned int input_size);

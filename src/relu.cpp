@@ -26,7 +26,7 @@ void ReLU::Forward()
   }
 }
 
-void ReLU::CalcDeltas(std::vector<double> nextLayerDeltas)
+void ReLU::CalcDeltas(std::vector<float> nextLayerDeltas)
 {
   NextLayerDeltas = nextLayerDeltas;
   LayerDeltas.clear();
@@ -38,6 +38,6 @@ void ReLU::CalcDeltas(std::vector<double> nextLayerDeltas)
       LayerDeltas[i] = nextLayerDeltas[i];
 }
 
-void ReLU::UpdateParams(double learning_rate)
+void ReLU::UpdateParams(float learning_rate)
 {
 }

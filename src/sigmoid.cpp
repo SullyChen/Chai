@@ -23,7 +23,7 @@ void Sigmoid::Forward()
   }
 }
 
-void Sigmoid::CalcDeltas(std::vector<double> nextLayerDeltas)
+void Sigmoid::CalcDeltas(std::vector<float> nextLayerDeltas)
 {
   NextLayerDeltas = nextLayerDeltas;
   LayerDeltas.clear();
@@ -32,6 +32,6 @@ void Sigmoid::CalcDeltas(std::vector<double> nextLayerDeltas)
     LayerDeltas[i] = nextLayerDeltas[i] * Output[i] * (1.0f - Output[i]);
 }
 
-void Sigmoid::UpdateParams(double learning_rate)
+void Sigmoid::UpdateParams(float learning_rate)
 {
 }

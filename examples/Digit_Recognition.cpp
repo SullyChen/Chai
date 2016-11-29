@@ -7,15 +7,15 @@
 #include <SFML/Graphics.hpp>
 #include <chai.h>
 
-unsigned int MaxElement(std::vector<double> input);
-std::vector<std::vector<double> > LoadMNIST();
+unsigned int MaxElement(std::vector<float> input);
+std::vector<std::vector<float> > LoadMNIST();
 
-unsigned int MaxElement(std::vector<double> input)
+unsigned int MaxElement(std::vector<float> input)
 {
   if (input.size() == 0)
     return -1;
 
-  double max = input[0];
+  float max = input[0];
   int index = 0;
   for (unsigned int i = 1; i < input.size(); i++)
     if (input[i] > max)
@@ -27,7 +27,7 @@ unsigned int MaxElement(std::vector<double> input)
   return index;
 }
 
-std::vector<std::vector<double> > LoadMNIST()
+std::vector<std::vector<float> > LoadMNIST()
 {
   //open the MNIST dataset
   std::ifstream data0;
@@ -51,16 +51,16 @@ std::vector<std::vector<double> > LoadMNIST()
   std::ifstream data9;
   data9.open("MNIST_Dataset/data9.txt", std::ios::binary);
 
-  std::vector<double> input0;
-  std::vector<double> input1;
-  std::vector<double> input2;
-  std::vector<double> input3;
-  std::vector<double> input4;
-  std::vector<double> input5;
-  std::vector<double> input6;
-  std::vector<double> input7;
-  std::vector<double> input8;
-  std::vector<double> input9;
+  std::vector<float> input0;
+  std::vector<float> input1;
+  std::vector<float> input2;
+  std::vector<float> input3;
+  std::vector<float> input4;
+  std::vector<float> input5;
+  std::vector<float> input6;
+  std::vector<float> input7;
+  std::vector<float> input8;
+  std::vector<float> input9;
 
   //create the input vectors
   while (data0.good())
@@ -125,7 +125,7 @@ std::vector<std::vector<double> > LoadMNIST()
   data8.close();
   data9.close();
 
-  std::vector<std::vector<double> > training_data;
+  std::vector<std::vector<float> > training_data;
   training_data.push_back(input0);
   training_data.push_back(input1);
   training_data.push_back(input2);
@@ -143,13 +143,13 @@ std::vector<std::vector<double> > LoadMNIST()
 int main()
 {
     srand(time(NULL));
-    std::vector<std::vector<double> > training_data = LoadMNIST();
+    std::vector<std::vector<float> > training_data = LoadMNIST();
 
     //create the labels
-    std::vector<std::vector<double> > labels;
+    std::vector<std::vector<float> > labels;
     for (int i = 0; i < 10; i++)
     {
-        std::vector<double> label;
+        std::vector<float> label;
         label.resize(10);
         label[i] = 1.0f;
         labels.push_back(label);
@@ -162,19 +162,19 @@ int main()
     const unsigned int NUM_CLASSES = 10;
     const unsigned int OUTPUT_SIZE = 10;
     const unsigned int NUM_EPOCHS = 10;
-    const double LEARNING_RATE = 0.1f;
+    const float LEARNING_RATE = 0.1f;
     const unsigned int NUM_EXAMPLES = training_data[0].size() / INPUT_SIZE;
 
     for (unsigned int epoch = 0; epoch < NUM_EPOCHS; epoch++)
       for (unsigned int i = 0; i < NUM_EXAMPLES; i++)
         for (unsigned int j = 0; j < NUM_CLASSES; j++)
         {
-          std::vector<double> input;
+          std::vector<float> input;
           input.reserve(INPUT_SIZE);
           for (int k = i * INPUT_SIZE; k < i * INPUT_SIZE + INPUT_SIZE; k++)
             input.push_back(training_data[j][k]);
 
-          double loss = MNISTModel.Train(input, labels[j], LEARNING_RATE / pow(10, epoch / 10.0f));
+          float loss = MNISTModel.Train(input, labels[j], LEARNING_RATE / pow(10, epoch / 10.0f));
 
           //train the model
           if (i % 100 == 0)
@@ -189,7 +189,7 @@ int main()
   {
     for (unsigned int j = 0; j < NUM_CLASSES; j++)
     {
-      std::vector<double> input;
+      std::vector<float> input;
       input.reserve(INPUT_SIZE);
       for (int k = i * INPUT_SIZE; k < i * INPUT_SIZE + INPUT_SIZE; k++)
         input.push_back(training_data[j][k]);
@@ -201,7 +201,7 @@ int main()
     }
   }
 
-  std::cout << "Accuracy: " << (double)num_correct / num_tests * 100.0f << "%" << std::endl;
+  std::cout << "Accuracy: " << (float)num_correct / num_tests * 100.0f << "%" << std::endl;
 
   // Create the main window
   sf::RenderWindow window(sf::VideoMode(280, 280), "Handwriting Recognition");
@@ -244,7 +244,7 @@ int main()
                   {
                       if (position.x + i + (position.y + j) * 280 < 280*280 && position.x + i + (position.y + j) * 280 >= 0)
                       {
-                          double distance_squared = i * i + j * j + 1;
+                          float distance_squared = i * i + j * j + 1;
                           sf::Color color(255 / distance_squared, 255 / distance_squared, 255 / distance_squared);
                           pointmap[position.x + i + (position.y + j) * 280].position.x = position.x + i;
                           pointmap[position.x + i + (position.y + j) * 280].position.y = position.y + j;
@@ -267,17 +267,17 @@ int main()
 
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Return))
       {
-          std::vector<double> input;
+          std::vector<float> input;
           input.reserve(784);
           for (int k = 0; k < 28; k++)
           {
               for (int l = 0; l < 28; l++)
               {
-                  double average = 0.0f;
+                  float average = 0.0f;
                   for (int i = 0; i < 10; i++)
                       for (int j = 0; j < 10; j++)
                       {
-                          double temp_average = 0.0f;
+                          float temp_average = 0.0f;
                           temp_average += pointmap[k * 10 * 280 + l * 10 + i * 280 + j].color.r;
                           temp_average += pointmap[k * 10 * 280 + l * 10 + i * 280 + j].color.g;
                           temp_average += pointmap[k * 10 * 280 + l * 10 + i * 280 + j].color.b;
@@ -289,7 +289,7 @@ int main()
                   input.push_back(average);
               }
           }
-          std::vector<double> output = MNISTModel.Evaluate(input);
+          std::vector<float> output = MNISTModel.Evaluate(input);
           int prediction = MaxElement(output);
           std::cout << "This number is predicted to be a: " << prediction << std::endl;
       }

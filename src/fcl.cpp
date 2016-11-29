@@ -43,7 +43,7 @@ void FCL::Forward()
   }
 }
 
-void FCL::CalcDeltas(std::vector<double> nextLayerDeltas)
+void FCL::CalcDeltas(std::vector<float> nextLayerDeltas)
 {
   NextLayerDeltas = nextLayerDeltas;
   LayerDeltas.clear();
@@ -58,7 +58,7 @@ void FCL::CalcDeltas(std::vector<double> nextLayerDeltas)
       LayerDeltas[i] += NextLayerDeltas[j + (i / InputSize) * OutputSize] * W[j + (i % InputSize) * OutputSize];
 }
 
-void FCL::UpdateParams(double learning_rate)
+void FCL::UpdateParams(float learning_rate)
 {
   //optimization
   unsigned int _iSize = Input.size();

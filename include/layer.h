@@ -10,13 +10,13 @@ class Layer
 {
 public:
   Layer();
-  std::vector<double> Input;
-  std::vector<double> Output;
-  std::vector<double> LayerDeltas;
-  std::vector<double> NextLayerDeltas;
+  std::vector<float> Input;
+  std::vector<float> Output;
+  std::vector<float> LayerDeltas;
+  std::vector<float> NextLayerDeltas;
   virtual void Forward() = 0;
-  virtual void CalcDeltas(std::vector<double> nextLayerDeltas) = 0;
-  virtual void UpdateParams(double learning_rate) = 0;
+  virtual void CalcDeltas(std::vector<float> nextLayerDeltas) = 0;
+  virtual void UpdateParams(float learning_rate) = 0;
 };
 
 #endif

@@ -11,11 +11,11 @@ public:
   FCL(unsigned int input_size, unsigned int output_size);
   unsigned int InputSize;
   unsigned int OutputSize;
-  std::vector<double> W;
-  std::vector<double> b;
+  std::vector<float> W;
+  std::vector<float> b;
   void Forward();
-  void CalcDeltas(std::vector<double> nextLayerDeltas);
-  void UpdateParams(double learning_rate);
+  void CalcDeltas(std::vector<float> nextLayerDeltas);
+  void UpdateParams(float learning_rate);
 };
 
 #endif

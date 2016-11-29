@@ -12,8 +12,8 @@ public:
   unsigned int InputSize;
   unsigned int OutputSize;
   void Forward();
-  void CalcDeltas(std::vector<double> nextLayerDeltas);
-  void UpdateParams(double learning_rate);
+  void CalcDeltas(std::vector<float> nextLayerDeltas);
+  void UpdateParams(float learning_rate);
 };
 
 #endif

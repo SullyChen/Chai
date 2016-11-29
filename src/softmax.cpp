@@ -20,7 +20,7 @@ void Softmax::Forward()
     Output.resize(Input.size());
     for (unsigned int i = 0; i < Input.size() / InputSize; i++)
     {
-      double denominator = 0.0f;
+      float denominator = 0.0f;
       for (unsigned int j = 0; j < InputSize; j++)
         denominator += exp(Input[j + i * InputSize]);
       for (unsigned int j = 0; j < InputSize; j++)
@@ -29,7 +29,7 @@ void Softmax::Forward()
   }
 }
 
-void Softmax::CalcDeltas(std::vector<double> nextLayerDeltas)
+void Softmax::CalcDeltas(std::vector<float> nextLayerDeltas)
 {
   NextLayerDeltas = nextLayerDeltas;
   LayerDeltas.clear();
@@ -49,6 +49,6 @@ void Softmax::CalcDeltas(std::vector<double> nextLayerDeltas)
   }
 }
 
-void Softmax::UpdateParams(double learning_rate)
+void Softmax::UpdateParams(float learning_rate)
 {
 }
