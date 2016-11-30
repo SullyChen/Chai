@@ -4,7 +4,7 @@
 #include <cmath>
 #include <time.h>
 #include <fstream>
-#include <chai.h>
+#include "chai.h"
 
 unsigned int MaxElement(std::vector<float> input);
 std::vector<std::vector<float> > LoadMNIST();

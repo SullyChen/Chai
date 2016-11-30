@@ -1,4 +1,4 @@
-#include <softmax.h>
+#include "softmax.h"
 
 Softmax::Softmax()
 {

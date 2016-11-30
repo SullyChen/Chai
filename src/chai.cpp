@@ -1,4 +1,4 @@
-#include <chai.h>
+#include "chai.h"
 
 ChaiModel::ChaiModel()
 {
