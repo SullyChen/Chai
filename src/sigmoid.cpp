@@ -1,4 +1,4 @@
-#include <sigmoid.h>
+#include "sigmoid.h"
 
 Sigmoid::Sigmoid()
 {

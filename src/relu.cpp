@@ -1,4 +1,4 @@
-#include <ReLU.h>
+#include "relu.h"
 
 ReLU::ReLU()
 {
