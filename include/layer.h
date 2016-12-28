@@ -1,4 +1,3 @@
-#pragma once
 #ifndef LAYER_H
 #define LAYER_H
 
@@ -10,6 +9,7 @@ class Layer
 {
 public:
   Layer();
+  virtual ~Layer();
   std::vector<float> Input;
   std::vector<float> Output;
   std::vector<float> LayerDeltas;
