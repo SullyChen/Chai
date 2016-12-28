@@ -26,11 +26,11 @@ unsigned int MaxElement(std::vector<float> input)
   return index;
 }
 
-std::vector<std::vector<float>> LoadMNIST() {
-  std::vector<std::vector<float>> training_data;
+std::vector<std::vector<float> > LoadMNIST() {
+  std::vector<std::vector<float> > training_data;
 
   // The MNIST dataset file list
-  const std::vector< std::string > fileList = {
+  const std::string fileList[] = {
       "MNIST_Dataset/data0.txt", "MNIST_Dataset/data1.txt",
       "MNIST_Dataset/data2.txt", "MNIST_Dataset/data3.txt",
       "MNIST_Dataset/data4.txt", "MNIST_Dataset/data5.txt",

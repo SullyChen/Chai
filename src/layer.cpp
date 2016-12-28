@@ -3,3 +3,7 @@
 Layer::Layer()
 {
 }
+
+Layer::~Layer()
+{
+}
