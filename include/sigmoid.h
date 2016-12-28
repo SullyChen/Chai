@@ -1,4 +1,3 @@
-#pragma once
 #ifndef SIGMOID_H
 #define SIGMOID_H
 
