@@ -1,4 +1,3 @@
-#pragma once
 #ifndef FCL_H
 #define FCL_H
 
