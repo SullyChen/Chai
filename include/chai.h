@@ -1,4 +1,3 @@
-#pragma once
 #ifndef CHAI_H
 #define CHAI_H
 
