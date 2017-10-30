@@ -8,5 +8,5 @@ make:
 clean:
 	rm *.o
 
-MNIST_TEST:
-	$(CC) $(CFLAGS) examples/MNIST_TEST.cpp *.o -o MNIST_TEST -O3
+test:
+	$(CC) $(CFLAGS) examples/MNIST_TEST.cpp *.o -o test -O3
