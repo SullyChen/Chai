@@ -1,12 +1,11 @@
 CC=g++
-CFLAGS=-I include
-TARGETS=src/chai.cpp src/fcl.cpp src/layer.cpp src/loadmnist.cpp src/relu.cpp src/sigmoid.cpp src/softmax.cpp
+TARGETS=../src/chai.cpp ../src/fcl.cpp ../src/layer.cpp ../src/loadmnist.cpp ../src/relu.cpp ../src/sigmoid.cpp ../src/softmax.cpp
 
 make:
-	$(CC) $(CFLAGS) -c $(TARGETS) -O3
+	mkdir bin; cd bin; $(CC) -I ../include -c $(TARGETS) -O3; cd ..
 
 clean:
 	rm *.o
 
 test:
-	$(CC) $(CFLAGS) examples/MNIST_TEST.cpp *.o -o test -O3
+	$(CC) -I include examples/MNIST_TEST.cpp bin/*.o -o test -O3
